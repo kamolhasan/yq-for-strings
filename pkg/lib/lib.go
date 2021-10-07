@@ -6,14 +6,13 @@ import (
 )
 
 type YqStringsLib struct {
-	yqLib yqlib.YqLib
+	YqLib yqlib.YqLib
 }
 
-func NewYqStringLib() YqStringsLib  {
-	return YqStringsLib{ yqLib: yqlib.NewYqLib()}
+func NewYqStringLib() YqStringsLib {
+	return YqStringsLib{YqLib: yqlib.NewYqLib()}
 }
 
-func (yqs *YqStringsLib) NodeToNodeContexts(node *yaml.Node, arrayMergeStrategy yqlib.ArrayMergeStrategy)([]*yqlib.NodeContext, error)  {
-	return yqs.yqLib.GetForMerge(node, "**", arrayMergeStrategy)
+func (yqs *YqStringsLib) NodeToNodeContexts(node *yaml.Node, arrayMergeStrategy yqlib.ArrayMergeStrategy) ([]*yqlib.NodeContext, error) {
+	return yqs.YqLib.GetForMerge(node, "**", arrayMergeStrategy)
 }
-

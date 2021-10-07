@@ -2,27 +2,40 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/kamolhasan/yq-for-strings/pkg/yqstrings"
+	"github.com/mikefarah/yq/v3/pkg/yqlib"
 )
 
-func main(){
+func main() {
 	y1 := `
-a: "aaaa"
 ar:
+# list of ar
 - "aaa"
 - "bbb"
 - "ccc"
+
+a: "aaaa"
 b:
   c:
     d: "dddd"
 `
-	node, err := yqstrings.StringToNode(y1)
-	if err!= nil {
-		panic(err)
-	}
-	data, err := yqstrings.NodeToString(node)
+
+	y2 := `
+a: "aaaa"
+ar:
+# value ddd
+- "ddd"
+b:
+  c:
+    e: "some"
+    d:
+      f: "FFFF"
+`
+	output, err := yqstrings.Merge(yqlib.AppendArrayMergeStrategy, yqlib.AppendCommentsMergeStrategy, true, y1, y2)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(data)
+
+	fmt.Println(output)
 }
